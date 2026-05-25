@@ -8,7 +8,10 @@ app = FastAPI()
 app.include_router(admin_router)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://naino-frontend.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -17,7 +20,6 @@ app.add_middleware(
 @app.on_event("startup")
 def startup():
     init_db()
-    # Seed data
     db = next(get_db())
     if db.query(Product).count() == 0:
         products = [
