@@ -5,7 +5,7 @@ from database import Product, get_db, init_db
 from admin import router as admin_router
 
 app = FastAPI()
-app.include_router(admin_router)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -16,6 +16,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(admin_router)
 
 @app.on_event("startup")
 def startup():
